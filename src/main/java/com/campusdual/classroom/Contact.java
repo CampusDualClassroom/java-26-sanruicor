@@ -1,6 +1,8 @@
 package com.campusdual.classroom;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Contact implements ICallActions{
 
@@ -8,12 +10,21 @@ public class Contact implements ICallActions{
     private String surname;
     private String phoneNumber;
     private String code;
+    private List<String> otherNumbers = new ArrayList<>();
 
     public Contact(String name, String surname, String phoneNumber) {
         this.name = name;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
         this.code = generateCode();
+    }
+
+    public Contact(String name, String surname, String phoneNumber, List<String> otherNumbers) {
+        this.name = name;
+        this.surname = surname;
+        this.phoneNumber = phoneNumber;
+        this.code = generateCode();
+        this.otherNumbers = otherNumbers;
     }
 
     private String generateCode() {
@@ -51,7 +62,13 @@ public class Contact implements ICallActions{
     public void showContactDetails() {
         System.out.println("Nombre: " + name);
         System.out.println("Apellidos: " + surname);
-        System.out.println("Teléfono: " + phoneNumber);
+        System.out.println("Teléfono Principal: " + phoneNumber);
+        if (!otherNumbers.isEmpty()) {
+            System.out.println("Otros números: ");
+            for (String number : otherNumbers) {
+                System.out.println(number);
+            }
+        }
         System.out.println("Código: " + code);
     }
 
@@ -65,6 +82,10 @@ public class Contact implements ICallActions{
 
     public String getPhone() {
         return phoneNumber;
+    }
+
+    public List<String> getOtherNumbers() {
+        return otherNumbers;
     }
 
     public String getCode() {
